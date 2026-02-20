@@ -1,12 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-type Message = {
-  id: number;
-  role: "user" | "assistant";
-  text: string;
-};
+import { Message } from "./types";
 
 export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -14,7 +9,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSendMessage = async () => {
-    if (!input.trim() || isLoading) return;
+    if (!input.trim()) return;
 
     const userMessage: Message = {
       id: Date.now(),
@@ -61,7 +56,7 @@ export default function Home() {
         {messages.length === 0 && (
           <div className="flex flex-col items-center justify-center h-10 text-gray-400 dark:text-gray-300">
             <p className="text-xs uppercase tracking-widest font-light">
-              Ask me anything
+              ask me anything
             </p>
           </div>
         )}
@@ -117,24 +112,17 @@ export default function Home() {
             }}
             placeholder="Type your message..."
             rows={2}
+            style={{ minHeight: "60px", maxHeight: "80px", fontSize: "1rem" }}
             className="flex-1 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
             disabled={isLoading}
           />
-
-          {/* ✅ FIXED SEND BUTTON */}
           <button
-            onClick={handleSendMessage}
-            disabled={isLoading}
-            className={`px-6 py-3 rounded-lg font-medium transition-colors text-white
-              ${
-                !input.trim()
-                  ? "bg-blue-600 opacity-60 cursor-not-allowed"
-                  : "bg-black hover:bg-gray-800"
-              }
-            `}
-          >
-            Send
-          </button>
+  onClick={handleSendMessage}
+  disabled={isLoading || !input.trim()}
+  className="px-6 py-3 !bg-black !text-white rounded-lg font-medium transition-colors hover:!bg-gray-800 disabled:!bg-blue-600 disabled:!text-white disabled:opacity-60 disabled:cursor-not-allowed"
+>
+  Send
+</button>
         </div>
       </footer>
     </div>
