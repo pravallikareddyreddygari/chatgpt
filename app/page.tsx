@@ -54,7 +54,7 @@ export default function Home() {
 
       <main className="flex-1 overflow-y-auto p-6 space-y-6">
         {messages.length === 0 && (
-          <div className="flex flex-col items-center justify-center h-16 text-gray-400 dark:text-gray-300">
+          <div className="flex flex-col items-center justify-center h-10 text-gray-400 dark:text-gray-300">
             <p className="text-xs uppercase tracking-widest font-light">
               ask me anything
             </p>
@@ -69,7 +69,7 @@ export default function Home() {
             }`}
           >
             <div
-              className={`max-w-5xl px-6 py-4 rounded-2xl ${
+              className={`max-w-3xl px-6 py-4 rounded-2xl ${
                 message.role === "user"
                   ? "bg-blue-600 text-white"
                   : "bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-600"
@@ -111,19 +111,19 @@ export default function Home() {
               }
             }}
             placeholder="Type your message..."
-            rows={3}
-            style={{ minHeight: "80px", maxHeight: "80px", fontSize: "1rem" }}
+            rows={2}
+            style={{ minHeight: "60px", maxHeight: "80px", fontSize: "1rem" }}
             className="flex-1 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
             disabled={isLoading}
           />
-          <button
-            onClick={handleSendMessage}
-            disabled={isLoading || !input.trim()}
-            style={{ minHeight: "80px", maxHeight: "80px", fontSize: "1rem" }}
-            className="px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
-          >
-            Send
-          </button>
+        <button
+  onClick={handleSendMessage}
+  disabled={isLoading || !input.trim()}
+  style={{ minHeight: "80px", maxHeight: "80px", fontSize: "1rem" }}
+  className="px-6 bg-blue-100 text-black rounded-lg hover:bg-blue-200 disabled:opacity-100 disabled:bg-blue-100 disabled:cursor-not-allowed transition-colors font-medium"
+>
+  Send
+</button>
         </div>
       </footer>
     </div>
