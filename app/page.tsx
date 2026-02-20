@@ -116,12 +116,27 @@ export default function Home() {
             className="flex-1 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
             disabled={isLoading}
           />
-        <button
-          onClick={handleSendMessage}
-          disabled={isLoading || !input.trim()}
-          className="px-6 py-3 bg-[#000000] text-[#FFFFFF] rounded-lg hover:bg-gray-800 disabled:opacity-50 disabled:bg-[#000000] disabled:cursor-not-allowed font-medium">
-  Send
-</button>
+          <button
+            onClick={handleSendMessage}
+            disabled={isLoading || !input.trim()}
+            className="px-6 py-3 rounded-lg font-medium transition-colors"
+            style={{
+              backgroundColor: '#000000',
+              color: '#FFFFFF',
+              opacity: isLoading || !input.trim() ? '0.5' : '1',
+              cursor: isLoading || !input.trim() ? 'not-allowed' : 'pointer'
+            }}
+            onMouseEnter={(e) => {
+              if (!isLoading && input.trim()) {
+                e.currentTarget.style.backgroundColor = '#1f2937';
+              }
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#000000';
+            }}
+          >
+            Send
+          </button>
         </div>
       </footer>
     </div>
