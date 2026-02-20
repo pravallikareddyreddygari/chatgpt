@@ -1,22 +1,52 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
-  const { message } = await req.json();
+export const runtime = "nodejs";
 
-  const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      model: "openai/gpt-3.5-turbo",
-      messages: [{ role: "user", content: message }]
-    })
-  });
+export async function POST(req: Request) {
+  try {
+    const { message } = await req.json();
 
-  const data = await response.json();
-  const reply = data.choices[0].message.content;
+    if (!process.env.OPENROUTER_API_KEY) {
+      return NextResponse.json(
+        { error: "API key not found" },
+        { status: 500 }
+      );
+    }
 
-  return NextResponse.json({ reply });
+    const response = await fetch(
+      "https://openrouter.ai/api/v1/chat/completions",
+      {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          "Content-Type": "application/json",
+          "HTTP-Referer": "https://chatgpt-indol-iota.vercel.app", 
+          "X-Title": "Mini ChatGPT"
+        },
+        body: JSON.stringify({
+          model: "openai/gpt-3.5-turbo",
+          messages: [{ role: "user", content: message }]
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return NextResponse.json(
+        { error: data },
+        { status: response.status }
+      );
+    }
+
+    const reply = data.choices?.[0]?.message?.content || "No response";
+
+    return NextResponse.json({ reply });
+
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Server error" },
+      { status: 500 }
+    );
+  }
 }
