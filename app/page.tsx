@@ -22,9 +22,8 @@ export default function Home() {
     setIsLoading(true);
 
     try {
-      // Simulate AI response - replace with actual API call
       const responseText = await getAIResponse(input);
-      
+
       const aiMessage: Message = {
         id: Date.now() + 1,
         role: "assistant",
@@ -45,13 +44,6 @@ export default function Home() {
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage();
-    }
-  };
-
   return (
     <div className="flex flex-col h-screen bg-gray-50 dark:bg-gray-900">
       <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
@@ -62,15 +54,19 @@ export default function Home() {
 
       <main className="flex-1 overflow-y-auto p-6 space-y-6">
         {messages.length === 0 && (
-           <div className="flex flex-col items-center justify-center h-16 text-gray-400 dark:text-gray-300">
-           <p className="text-xs uppercase tracking-widest font-light">ask me anything</p>
-            </div>
+          <div className="flex flex-col items-center justify-center h-16 text-gray-400 dark:text-gray-300">
+            <p className="text-xs uppercase tracking-widest font-light">
+              ask me anything
+            </p>
+          </div>
         )}
 
         {messages.map((message) => (
           <div
             key={message.id}
-            className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+            className={`flex ${
+              message.role === "user" ? "justify-end" : "justify-start"
+            }`}
           >
             <div
               className={`max-w-5xl px-6 py-4 rounded-2xl ${
@@ -89,8 +85,14 @@ export default function Home() {
             <div className="max-w-3xl px-6 py-4 rounded-2xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-600">
               <div className="flex space-x-2">
                 <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }} />
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }} />
+                <div
+                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                  style={{ animationDelay: "0.1s" }}
+                />
+                <div
+                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                  style={{ animationDelay: "0.2s" }}
+                />
               </div>
             </div>
           </div>
@@ -98,26 +100,27 @@ export default function Home() {
       </main>
 
       <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-6">
-        <div className="max-w-4xl mx-auto flex gap-4">
-          <input
-
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => {
-       if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSendMessage();
-    }
-  }}
-  placeholder="Type your message..."
-  rows={12}
-  className="flex-1 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-  disabled={isLoading}
-/>
+        <div className="max-w-4xl mx-auto flex gap-4 items-end">
+          <textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleSendMessage();
+              }
+            }}
+            placeholder="Type your message..."
+            rows={12}
+            style={{ minHeight: "220px" }}
+            className="flex-1 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+            disabled={isLoading}
+          />
           <button
             onClick={handleSendMessage}
             disabled={isLoading || !input.trim()}
-  className="flex-1 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none min-h-[200px]"
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+          >
             Send
           </button>
         </div>
@@ -125,6 +128,7 @@ export default function Home() {
     </div>
   );
 }
+
 async function getAIResponse(query: string): Promise<string> {
   const response = await fetch("/api/chat", {
     method: "POST",
