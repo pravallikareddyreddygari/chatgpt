@@ -117,12 +117,13 @@ export default function Home() {
             disabled={isLoading}
           />
         <button
-  onClick={handleSendMessage}
-  disabled={isLoading || !input.trim()}
-  style={{ minHeight: "80px", maxHeight: "80px", fontSize: "1rem" }}
-className="px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 disabled:opacity-50 disabled:bg-black disabled:cursor-not-allowed transition-colors font-medium">
-  Send
-</button>
+          onClick={handleSendMessage}
+          disabled={isLoading || !input.trim()}
+          style={{ minHeight: "80px", maxHeight: "80px", fontSize: "1rem" }}
+          className="px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 disabled:opacity-50 disabled:bg-gray-900 disabled:cursor-not-allowed transition-colors font-medium shadow-sm"
+        >
+          Send
+        </button>
         </div>
       </footer>
     </div>
