@@ -119,20 +119,24 @@ export default function Home() {
           <button
             onClick={handleSendMessage}
             disabled={isLoading || !input.trim()}
-            className="px-6 py-3 rounded-lg font-medium transition-colors"
             style={{
-              backgroundColor: '#000000',
-              color: '#FFFFFF',
-              opacity: isLoading || !input.trim() ? '0.5' : '1',
-              cursor: isLoading || !input.trim() ? 'not-allowed' : 'pointer'
+              padding: '12px 24px',
+              backgroundColor: '#000000 !important',
+              color: '#FFFFFF !important',
+              borderRadius: '8px',
+              border: 'none',
+              fontWeight: '500',
+              cursor: isLoading || !input.trim() ? 'not-allowed' : 'pointer',
+              opacity: isLoading || !input.trim() ? 0.5 : 1,
+              transition: 'background-color 0.2s'
             }}
             onMouseEnter={(e) => {
               if (!isLoading && input.trim()) {
-                e.currentTarget.style.backgroundColor = '#1f2937';
+                (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#1a1a1a';
               }
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = '#000000';
+              (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#000000';
             }}
           >
             Send
