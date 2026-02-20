@@ -99,8 +99,8 @@ export default function Home() {
         )}
       </main>
 
-      <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-6">
-        <div className="max-w-4xl mx-auto flex gap-4 items-end">
+      <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-4">
+        <div className="max-w-4xl mx-auto flex gap-3">
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -111,15 +111,16 @@ export default function Home() {
               }
             }}
             placeholder="Type your message..."
-            rows={12}
-            style={{ minHeight: "220px" }}
+            rows={3}
+            style={{ minHeight: "80px", maxHeight: "80px", fontSize: "1rem" }}
             className="flex-1 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
             disabled={isLoading}
           />
           <button
             onClick={handleSendMessage}
             disabled={isLoading || !input.trim()}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+            style={{ minHeight: "80px", maxHeight: "80px", fontSize: "1rem" }}
+            className="px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
           >
             Send
           </button>
