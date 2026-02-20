@@ -20,12 +20,15 @@ export async function POST(req: Request) {
         headers: {
           "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
           "Content-Type": "application/json",
-          "HTTP-Referer": "https://chatgpt-indol-iota.vercel.app", 
+          "HTTP-Referer": "https://chatgpt-ob29.vercel.app",
           "X-Title": "Mini ChatGPT"
         },
         body: JSON.stringify({
           model: "openai/gpt-3.5-turbo",
-          messages: [{ role: "user", content: message }]
+          messages: [
+            { role: "system", content: "You are a helpful assistant." },
+            { role: "user", content: message }
+          ]
         })
       }
     );
@@ -33,10 +36,7 @@ export async function POST(req: Request) {
     const data = await response.json();
 
     if (!response.ok) {
-      return NextResponse.json(
-        { error: data },
-        { status: response.status }
-      );
+      return NextResponse.json({ error: data }, { status: 500 });
     }
 
     const reply = data.choices?.[0]?.message?.content || "No response";
