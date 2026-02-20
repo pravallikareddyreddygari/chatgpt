@@ -18,3 +18,25 @@ body {
   color: var(--foreground);
   background: var(--background);
 }
+
+/* Custom button styles with !important to override everything */
+.send-button-black {
+  background-color: #000000 !important;
+  color: #FFFFFF !important;
+  padding: 12px 24px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  font-weight: 500 !important;
+  transition: background-color 0.2s !important;
+}
+
+.send-button-black:hover:not(:disabled) {
+  background-color: #1a1a1a !important;
+}
+
+.send-button-black:disabled {
+  background-color: #2563eb !important;
+  color: #FFFFFF !important;
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+}
