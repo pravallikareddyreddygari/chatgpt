@@ -62,7 +62,7 @@ export default function Home() {
 
       <main className="flex-1 overflow-y-auto p-6 space-y-6">
         {messages.length === 0 && (
-          <div className="flex flex-col items-center justify-center h-full text-gray-500 dark:text-gray-400">
+          <div className="flex flex-col items-center justify-center h-full text-gray-400 dark:text-gray-300">
             <p>Ask me anything!</p>
           </div>
         )}
@@ -73,7 +73,7 @@ export default function Home() {
             className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
           >
             <div
-              className={`max-w-3xl px-6 py-4 rounded-2xl ${
+              className={`max-w-5xl px-6 py-4 rounded-2xl ${
                 message.role === "user"
                   ? "bg-blue-600 text-white"
                   : "bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-600"
