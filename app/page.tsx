@@ -136,10 +136,11 @@ async function getAIResponse(query: string): Promise<string> {
     body: JSON.stringify({ message: query }),
   });
 
+  const data = await response.json();
+
   if (!response.ok) {
-    throw new Error(`API error: ${response.status}`);
+    throw new Error(data.error || `API error: ${response.status}`);
   }
 
-  const data = await response.json();
   return data.reply;
 }
